@@ -20,5 +20,18 @@ print("Test Set     :", train_images.shape) # Size of test set (0) along with re
 
 # Normalising/Feature scaling the value of each pixel intensity
 train_images = train_images / 255.0
-test_images = test_images / 255.0
+test_images  = test_images / 255.0
 
+# Create the neural network with sequential flow and 3 layers
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),       # Input layer with 784 input nodes
+    keras.layers.Dense(128, activation=tf.nn.relu),   # Hidden layer with 128 densley connected neurons using relu for activation
+    keras.layers.Dense(10, activation=tf.nn.softmax)  # Output layer with 10 possible outputs using softmax (sigmoid) activation
+])
+
+# Model configuration of optimizer, loss function and metric of the neural net
+model.compile(
+    optimizer = tf.train.AdamOptimizer(),             # Modified version SGD which implements adaptive learning rates for each weight instead of one for all
+    loss      = 'sparse_categorical_crossentropy',    # Our targets are represented as integers so we use 'sparse_categorical_crossentropy'
+    metrics   = ['accuracy']                          # Measure network accuracy by fraction of correctly classified images
+)
