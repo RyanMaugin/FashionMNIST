@@ -35,3 +35,18 @@ model.compile(
     loss      = 'sparse_categorical_crossentropy',    # Our targets are represented as integers so we use 'sparse_categorical_crossentropy'
     metrics   = ['accuracy']                          # Measure network accuracy by fraction of correctly classified images
 )
+
+# Start training the model and run training for 5 epochs
+model.fit(train_images, train_labels, epochs=5)
+
+# Evaluating accurancy of model by testing it on the test data
+test_loss, test_accurancy = model.evaluate(test_images, test_labels)
+print("Test Loss: {} \nTest Accurancy: {}".format(test_loss, test_accurancy))
+
+# Now that the model is trained and evaluated for accurancy we can now use it to make predictions if performance is good
+predictions = model.predict(test_images)
+
+# Check prediction and see if classified first image correctly
+print(predictions[0])
+print("Prediction:", np.argmax(predictions[0]))
+print("Answer:", test_labels[0])
