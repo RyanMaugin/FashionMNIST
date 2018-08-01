@@ -36,17 +36,36 @@ model.compile(
     metrics   = ['accuracy']                          # Measure network accuracy by fraction of correctly classified images
 )
 
-# Start training the model and run training for 5 epochs
+# Start training the model and run training for 5 epochs (seems to give good results with little overfitting)
 model.fit(train_images, train_labels, epochs=5)
 
 # Evaluating accurancy of model by testing it on the test data
 test_loss, test_accurancy = model.evaluate(test_images, test_labels)
 print("Test Loss: {} \nTest Accurancy: {}".format(test_loss, test_accurancy))
 
-# Now that the model is trained and evaluated for accurancy we can now use it to make predictions if performance is good
+# Now that the model is trained and evaluated for accuracy we can now use it to make predictions if performance is good
 predictions = model.predict(test_images)
 
-# Check prediction and see if classified first image correctly
-print(predictions[0])
-print("Prediction:", np.argmax(predictions[0]))
-print("Answer:", test_labels[0])
+# Plot the first 25 predicted images with their predicted labels 
+# along with colour code green for correct and red for incorrect prediction
+plt.figure(figsize=(10, 10))
+for x in range(25):
+    plt.subplot(5, 5, x + 1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(test_images[x], cmap=plt.cm.binary) # Plot image
+    predicted_label = np.argmax(predictions[x])    # Get classification with highest confidence
+    true_label = test_labels[x]                    # Get correct label
+
+    # Check if prediction was correct and if so make label green
+    if predicted_label == true_label: colour = 'green'
+    else: colour = 'red'
+    
+    # Plot the label under image with colour corresponding to correct prediction or not
+    plt.xlabel(
+        "{} ({})".format(class_names[predicted_label], class_names[true_label]),
+        color=colour
+    )
+
+plt.show() # Reveal the plotting with the predictions
