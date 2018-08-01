@@ -16,7 +16,7 @@ I tested out different optimisation algorithms to see how long training would ta
 
 | Optimisation                 | Epochs | Accurancy | Training Time |
 |------------------------------|--------|-----------|---------------|
-| Gradient Descent             | 5      | 84%       | ~10s          |
+| Gradient Descent (𝝰 = 0.01)  | 5      | 84%       | ~10s          |
 | Adam                         | 5      | 86.3%     | ~10s          |
 | Ada Delta Optimizer          | 5      | 47.2%     | ~10s          |
 | Adagrad Optimizer (𝝰 = 0.01) | 5      | 85%       | ~10s          |
